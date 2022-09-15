@@ -27,7 +27,7 @@ body {
   height: 500px;
   position: fixed;
   top: 1em;
-  margin: 200px 2.5% 200px 2.5%;
+  margin: 150px 2.5% 200px 2.5%;
   border: aqua solid 1px;
   border-radius: 12px;
 }
@@ -92,7 +92,7 @@ body {
 }
 
 .date-information{
-    margin: 570px 0px 0px 60px;
+    margin: 500px 0px 0px 60px;
     height: 20px;
     justify-content: left;
     text-align: left;
