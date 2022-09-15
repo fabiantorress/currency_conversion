@@ -12,7 +12,7 @@ body {
   flex-direction: column;
   background-image: url(../../assets/waveImage.webp);
   background-size: cover;
-  height: 450px;
+  height: 400px;
   width: 100%;
   position: fixed;
 }

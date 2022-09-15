@@ -54,8 +54,6 @@ function HomePage() {
     }
   }
 
-  console.log('render')
-
   const rates = dataRates ? dataRates.rates : null;
 
   return (
