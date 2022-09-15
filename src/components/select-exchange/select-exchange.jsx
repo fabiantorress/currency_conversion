@@ -3,7 +3,7 @@ import './select-exchange.styles.css'
 
 function SelectExchange({setCurrency, currency, currenciesToMap, labelText}) {
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div className="select-exchange-container">
       <label htmlFor="currency" className="labelText">
         {labelText}
       </label>

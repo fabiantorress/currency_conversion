@@ -1,0 +1,12 @@
+.title-calculator{
+    color: white;
+     font-family:Arial, Helvetica, sans-serif;
+     margin-top: 90px;
+     font-size: 45px;
+}
+
+@media (max-width: 991px) {
+    .title-calculator{
+        font-size: 40px;
+    }  
+}

@@ -57,7 +57,7 @@ function HomePage() {
   const rates = dataRates ? dataRates.rates : null;
 
   return (
-    <>
+    <div className="app-container">
       <div className="calculator-container">
         <TitleConverter />
         <div className="currency-container">
@@ -91,11 +91,7 @@ function HomePage() {
           <div className="equality-exchange-container">
             {rates ? (
               <div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
+                <div className="big-equality-container"
                 >
                   <p
                     style={{
@@ -114,18 +110,19 @@ function HomePage() {
                       color: "black",
                       fontWeight: "500",
                       fontFamily: "Arial",
+                      marginTop: "16px",
                     }}
                   >
                     {(rates[symbolCurrencyChanged] * valueInput).toFixed(2) +
                       currencyChanged.split("-")[1]}
                   </p>
                 </div>
-                <div className="equaltyCurrency-container">
+                <div className="equalityCurrency-container">
                   <div
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      height: "35px",
+                      height: "30px",
                     }}
                   >
                     <p className="textExchange">
@@ -144,7 +141,7 @@ function HomePage() {
                     style={{
                       display: "flex",
                       flexDirection: "row",
-                      height: "35px",
+                      height: "30px",
                     }}
                   >
                     <p className="textExchange">
@@ -192,7 +189,7 @@ function HomePage() {
           </p>
         ) : null}
       </div>
-    </>
+    </div>
   );
 }
 
