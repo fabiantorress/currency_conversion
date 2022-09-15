@@ -25,10 +25,9 @@ body {
   z-index: 9;
   background-color: white;
   width: 95%;
-  height: 500px;
+  height: 445px;
   position: fixed;
-  top: 1em;
-  margin: 150px 2.5% 200px 2.5%;
+  margin: 165px 2.5% 200px 2.5%;
   border: aqua solid 1px;
   border-radius: 12px;
 }
@@ -93,7 +92,7 @@ body {
 }
 
 .date-information{
-    margin: 500px 0px 0px 60px;
+    margin: 450px 0px 0px 60px;
     height: 20px;
     justify-content: left;
     text-align: left;
