@@ -4,6 +4,8 @@ import * as axios from "axios";
 import SelectExchange from "../select-exchange/select-exchange";
 import { BsExclamationCircle } from "react-icons/bs";
 import TitleConverter from "../title/title";
+import Spinner from "../spinner/spinner";
+import { formatDate } from "../../utils/misc";
 
 const defaultMoneytoChange = "USD - US Dollar";
 const defaultMoneyChanged = "EUR - Euro";
@@ -15,18 +17,28 @@ function HomePage() {
     React.useState(defaultMoneytoChange);
   const [currencyChanged, setCurrencyChanged] =
     React.useState(defaultMoneyChanged);
+
   const [dataRates, setDataRates] = React.useState();
 
   const [valueInput, setValueInput] = React.useState(
     defaultInputMoney.toFixed(2)
   );
 
+  const [status, setStatus] = React.useState("loading");
+
+  const isLoading = status === "loading";
+  const isResolved = status === "resolved";
+  const isRejected = status === "rejected";
+
   React.useEffect(() => {
     async function getCurrencies() {
       const response = await axios.get("https://api.vatcomply.com/currencies");
       setCurrencies(response.data);
+      setStatus("resolved");
     }
-    getCurrencies();
+    setTimeout(() => {
+      getCurrencies();
+    }, 1000);
   }, []);
 
   React.useEffect(() => {
@@ -88,104 +100,107 @@ function HomePage() {
               labelText="To:"
             />
           </div>
-          <div className="equality-exchange-container">
-            {rates ? (
-              <div>
-                <div className="big-equality-container"
+          {isLoading ? (
+            <Spinner />
+          ) : isResolved ? (
+            <div className="equality-exchange-container">
+              {rates ? (
+                <div>
+                  <div className="big-equality-container">
+                    <p
+                      style={{
+                        fontSize: "30px",
+                        color: "gray",
+                        fontWeight: "500",
+                        fontFamily: "Arial",
+                        marginBottom: "0px",
+                      }}
+                    >
+                      {valueInput + currencyToChange.split("-")[1]} ={" "}
+                    </p>
+                    <p
+                      style={{
+                        fontSize: "40px",
+                        color: "black",
+                        fontWeight: "500",
+                        fontFamily: "Arial",
+                        marginTop: "16px",
+                      }}
+                    >
+                      {(rates[symbolCurrencyChanged] * valueInput).toFixed(2) +
+                        currencyChanged.split("-")[1]}
+                    </p>
+                  </div>
+                  <div className="equalityCurrency-container">
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        height: "30px",
+                      }}
+                    >
+                      <p className="textExchange">
+                        {defaultInputMoney.toFixed(2) +
+                          " " +
+                          currencyChanged.split("-")[0] +
+                          "="}
+                      </p>
+                      <p className="textExchange">
+                        {(1 / rates[symbolCurrencyChanged]).toFixed(2) +
+                          " " +
+                          currencyToChange.split("-")[0]}
+                      </p>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        height: "30px",
+                      }}
+                    >
+                      <p className="textExchange">
+                        {defaultInputMoney.toFixed(2) +
+                          " " +
+                          currencyToChange.split("-")[0] +
+                          "="}
+                      </p>
+                      <p className="textExchange">
+                        {rates[symbolCurrencyChanged].toFixed(2) +
+                          " " +
+                          currencyChanged.split("-")[0]}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+              <div className="information-container">
+                <BsExclamationCircle
+                  style={{
+                    marginTop: "17px",
+                    marginLeft: "10px",
+                    color: "orange",
+                    height: "20px",
+                    width: "20px",
+                  }}
+                />
+                <p
+                  style={{
+                    marginLeft: "10px",
+                    marginRight: "10px",
+                    color: "GrayText",
+                    fontFamily: "Arial",
+                  }}
                 >
-                  <p
-                    style={{
-                      fontSize: "30px",
-                      color: "gray",
-                      fontWeight: "500",
-                      fontFamily: "Arial",
-                      marginBottom: "0px",
-                    }}
-                  >
-                    {valueInput + currencyToChange.split("-")[1]} ={" "}
-                  </p>
-                  <p
-                    style={{
-                      fontSize: "40px",
-                      color: "black",
-                      fontWeight: "500",
-                      fontFamily: "Arial",
-                      marginTop: "16px",
-                    }}
-                  >
-                    {(rates[symbolCurrencyChanged] * valueInput).toFixed(2) +
-                      currencyChanged.split("-")[1]}
-                  </p>
-                </div>
-                <div className="equalityCurrency-container">
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      height: "30px",
-                    }}
-                  >
-                    <p className="textExchange">
-                      {defaultInputMoney.toFixed(2) +
-                        " " +
-                        currencyChanged.split("-")[0] +
-                        "="}
-                    </p>
-                    <p className="textExchange">
-                      {(1 / rates[symbolCurrencyChanged]).toFixed(2) +
-                        " " +
-                        currencyToChange.split("-")[0]}
-                    </p>
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      height: "30px",
-                    }}
-                  >
-                    <p className="textExchange">
-                      {defaultInputMoney.toFixed(2) +
-                        " " +
-                        currencyToChange.split("-")[0] +
-                        "="}
-                    </p>
-                    <p className="textExchange">
-                      {rates[symbolCurrencyChanged].toFixed(2) +
-                        " " +
-                        currencyChanged.split("-")[0]}
-                    </p>
-                  </div>
-                </div>
+                  We use the market rate. This is for informational purpose only
+                </p>
               </div>
-            ) : null}
-            <div className="information-container">
-              <BsExclamationCircle
-                style={{
-                  marginTop: "17px",
-                  marginLeft: "10px",
-                  color: "orange",
-                  height: "20px",
-                  width: "20px",
-                }}
-              />
-              <p
-                style={{
-                  marginLeft: "10px",
-                  marginRight: "10px",
-                  color: "GrayText",
-                  fontFamily: "Arial",
-                }}
-              >
-                We use the market rate. This is for informational purpose only
-              </p>
             </div>
-          </div>
+          ) : null}
         </div>
         {dataRates ? (
           <p className="date-information">
             Conversion from {currencyToChange.split("-")[1]} to{" "}
-            {currencyChanged.split("-")[1]} - Last updated: {dataRates.date}
+            {currencyChanged.split("-")[1]} - Last updated: {formatDate(new Date(dataRates.date))}
           </p>
         ) : null}
       </div>
