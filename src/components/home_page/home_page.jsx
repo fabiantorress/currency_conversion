@@ -3,6 +3,7 @@ import "./home_page.styles.css";
 import * as axios from "axios";
 import SelectExchange from "../select-exchange/select-exchange";
 import { BsExclamationCircle } from "react-icons/bs";
+import { MdOutlineChangeCircle } from "react-icons/md";
 import TitleConverter from "../title/title";
 import Spinner from "../spinner/spinner";
 import { formatDate } from "../../utils/misc";
@@ -66,6 +67,11 @@ function HomePage() {
     }
   }
 
+  function handlerSwitch() {
+    setCurrencyChanged(currencyToChange);
+    setCurrencyToChange(currencyChanged);
+  }
+
   const rates = dataRates ? dataRates.rates : null;
 
   return (
@@ -87,12 +93,15 @@ function HomePage() {
                 className="box"
               />
             </div>
-            <SelectExchange
-              currency={currencyToChange}
-              setCurrency={setCurrencyToChange}
-              currenciesToMap={currencies}
-              labelText="From:"
-            />
+            <div style={{ display: "flex", flexDirection: "row" }}>
+              <SelectExchange
+                currency={currencyToChange}
+                setCurrency={setCurrencyToChange}
+                currenciesToMap={currencies}
+                labelText="From:"
+              />
+              <MdOutlineChangeCircle className="switch-button" onClick={handlerSwitch} />
+            </div>
             <SelectExchange
               currency={currencyChanged}
               setCurrency={setCurrencyChanged}
@@ -200,7 +209,8 @@ function HomePage() {
         {dataRates ? (
           <p className="date-information">
             Conversion from {currencyToChange.split("-")[1]} to{" "}
-            {currencyChanged.split("-")[1]} - Last updated: {formatDate(new Date(dataRates.date))}
+            {currencyChanged.split("-")[1]} - Last updated:{" "}
+            {formatDate(new Date(dataRates.date))}
           </p>
         ) : null}
       </div>

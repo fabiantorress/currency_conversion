@@ -18,6 +18,16 @@ body {
   position: fixed;
 }
 
+.switch-button {
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  justify-content: center;
+  margin-top: 25px;
+  margin-left: 20px;
+  color: lightskyblue;
+}
+
 .currency-container {
   display: flex;
   flex-direction: row;
